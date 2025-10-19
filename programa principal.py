@@ -1,5 +1,26 @@
 # parcial de Programación II
-from generar_ventas_diarias import generar_ventas_diarias
+import random
+
+#definiendo las funciones usadas en el programa principal
+# Generar ventas diarias para tres productos
+def generar_ventas_diarias(numero_de_dias: int) -> list:
+    productoA = []
+    productoB = []
+    productoC = []
+    
+    for dia in range(numero_de_dias):
+        ventaA = random.randint(0, 50)
+        ventaB = random.randint(0, 50)
+        ventaC = random.randint(0, 50)
+        
+        productoA.append(ventaA)
+        productoB.append(ventaB)
+        productoC.append(ventaC)
+        
+    return productoA, productoB, productoC
+# --
+
+# --- Programa Principal ---
 numero_de_dias = 0
 # Titulo de programa
 print("----- Analisis de Ventas -----")
@@ -11,6 +32,7 @@ productoA = generar_ventas_diarias(numero_de_dias)[0]
 productoB = generar_ventas_diarias(numero_de_dias)[1]
 productoC = generar_ventas_diarias(numero_de_dias)[2]
 # Mostrar las ventas diarias de cada producto
+# las ventas de los productos se muestran de forma tabular
 print("\nVentas Diarias:")
 print("Día\tProducto A\tProducto B\tProducto C")
 for dia in range(numero_de_dias):
