@@ -3,7 +3,8 @@
 # fecha: 19 de octubre de 2025
 import random
 
-#definiendo las funciones usadas en el programa principal
+# Se definen las funciones usadas en el programa principal
+# estan fueron creadas para realizar las tareas del programa
 # Generar ventas diarias para tres productos
 def generar_ventas_diarias(numero_de_dias: int) -> list:
     productoA = []
@@ -31,10 +32,51 @@ def calcular_ventas_por_dia(ventas_productoA, ventas_productoB, ventas_productoC
     for dia in range(len(ventas_productoA)):
         ventas_totales_dia = ventas_productoA[dia] + ventas_productoB[dia] + ventas_productoC[dia]
         print(f"{dia + 1}\t{ventas_totales_dia}")
+# para encontrar los dias con mayor y menor ventas
+def encontrar_dias_extremos(ventas_productoA, ventas_productoB, ventas_productoC):
+    mayor_venta = -1
+    menor_venta = float('inf')
+    dia_mayor = -1
+    dia_menor = -1
+    producto_mayor = ""
+    producto_menor = ""
+    
+    for dia in range(len(ventas_productoA)):
+        # Verificar producto A
+        if ventas_productoA[dia] > mayor_venta:
+            mayor_venta = ventas_productoA[dia]
+            dia_mayor = dia + 1
+            producto_mayor = "Producto A"
+        if ventas_productoA[dia] < menor_venta:
+            menor_venta = ventas_productoA[dia]
+            dia_menor = dia + 1
+            producto_menor = "Producto A"
+        # Verificar producto B
+        if ventas_productoB[dia] > mayor_venta:
+            mayor_venta = ventas_productoB[dia]
+            dia_mayor = dia + 1
+            producto_mayor = "Producto B"
+        if ventas_productoB[dia] < menor_venta:
+            menor_venta = ventas_productoB[dia]
+            dia_menor = dia + 1
+            producto_menor = "Producto B"
+        # Verificar producto C
+        if ventas_productoC[dia] > mayor_venta:
+            mayor_venta = ventas_productoC[dia]
+            dia_mayor = dia + 1
+            producto_mayor = "Producto C"
+        if ventas_productoC[dia] < menor_venta:
+            menor_venta = ventas_productoC[dia]
+            dia_menor = dia + 1
+            producto_menor = "Producto C"
+    
+    print(f"\nDía con mayor venta: Día {dia_mayor} del {producto_mayor} con {mayor_venta} unidades.")
+    print(f"Día con menor venta: Día {dia_menor} del {producto_menor} con {menor_venta} unidades.")
+#
 
 # --- Programa Principal ---
-numero_de_dias = 0
 # Titulo de programa
+numero_de_dias = 0
 print("----- Analisis de Ventas -----")
 '''
 1. Registrar y mostrar las ventas generadas de cada producto y por cada día.
@@ -69,8 +111,35 @@ print(f"Producto B: {total_ventas_B}")
 print(f"Producto C: {total_ventas_C}")
 # Promedio de ventas por día
 calcular_ventas_por_dia(productoA, productoB, productoC)
-
 '''
 3. Identificar los días con mayor y menor cantidad de ventas
 indicando a qué producto pertenecen dichos valores
 '''
+encontrar_dias_extremos(productoA, productoB, productoC)
+'''
+4. Consulta de venta en un dias específico
+'''
+solicitud_de_consulta = str(input("\n¿Desea consultar las ventas de un día? (si o no): "))
+# Validar la entrada del usuario
+while solicitud_de_consulta not in ['si', 'no']:
+    print("Entrada inválida. Por favor ingrese 'si' o 'no'.")
+    solicitud_de_consulta = str(input("¿Desea consultar las ventas de un día? (si/no): "))
+# Salida del programa si no desea consultar
+if solicitud_de_consulta == 'no':
+    print("Gracias por usar el programa de análisis de ventas.")
+
+# Consulta de ventas en un día específico
+if solicitud_de_consulta == 'si':
+    dia_consulta = int(input(f"Ingrese el día a consultar (1-{numero_de_dias}): "))
+    while True:
+        if 1 <= dia_consulta <= numero_de_dias:
+            print(f"Ventas del Día {dia_consulta}:")
+            print(f"Producto A: {productoA[dia_consulta - 1]}")
+            print(f"Producto B: {productoB[dia_consulta - 1]}")
+            print(f"Producto C: {productoC[dia_consulta - 1]}")
+            break
+        print(f"Día inválido. Debe estar entre 1 y {numero_de_dias}.")
+        try:
+            dia_consulta = int(input(f"Ingrese el día a consultar (1-{numero_de_dias}): "))
+        except ValueError:
+            print("Entrada inválida. Ingrese un número entero.")
